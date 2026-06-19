@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://valemond06-svg.github.io/crypto-calculator/sitemap.xml

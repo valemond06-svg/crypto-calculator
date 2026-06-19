@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── SEO ──────────────────────────────────────────────────── -->
+  <title>Crypto Position Size Calculator | Free Risk Management Tool</title>
+  <meta name="description" content="Calculate your optimal crypto position size in seconds. Free tool for Bitcoin, Ethereum &amp; altcoin traders — includes R:R ratio and leverage liquidation price estimate. No signup, no data stored." />
+  <meta name="keywords" content="crypto position size calculator, bitcoin position size, crypto risk calculator, trading position size, crypto risk management, liquidation price calculator, risk reward calculator crypto" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://valemond06-svg.github.io/crypto-calculator/" />
+
+  <!-- ── Open Graph ────────────────────────────────────────────── -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Crypto Position Size Calculator | Free Risk Management Tool" />
+  <meta property="og:description" content="Calculate your optimal position size, R:R ratio and liquidation price in seconds. Free, instant, no signup required." />
+  <meta property="og:url" content="https://valemond06-svg.github.io/crypto-calculator/" />
+
+  <!-- ── Twitter Card ──────────────────────────────────────────── -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Crypto Position Size Calculator" />
+  <meta name="twitter:description" content="Free crypto risk management tool. Position size, R:R ratio and liquidation price — all in your browser." />
+
+  <!-- ── Schema.org ────────────────────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Crypto Position Size Calculator",
+    "description": "Free calculator for crypto traders to determine optimal position size, risk/reward ratio and estimated liquidation price.",
+    "url": "https://valemond06-svg.github.io/crypto-calculator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Position Size Calculation",
+      "Risk/Reward Ratio",
+      "Liquidation Price Estimate",
+      "Long and Short positions",
+      "Client-side only — no data stored"
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+
+  <!-- ── Header ───────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="logo" aria-label="CryptoCalc — home">
+        <svg class="logo-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#5b63f7" opacity="0.18"/>
+          <path d="M9 8v16M9 12.5h7.5a3.5 3.5 0 010 7H9" stroke="#5b63f7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="23" y1="8" x2="23" y2="24" stroke="#5b63f7" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">CryptoCalc</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── Hero ───────────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="container">
+        <h1>Crypto Position Size Calculator</h1>
+        <p class="hero-subtitle">
+          Calculate your optimal position size, risk/reward ratio and estimated liquidation price —
+          instantly in your browser. No signup. No data stored.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Calculator ─────────────────────────────────────────── -->
+    <section class="calculator-section">
+      <div class="container">
+        <div class="calc-layout">
+
+          <!-- Calculator Card -->
+          <div class="card calc-card">
+            <form id="calculator-form" novalidate autocomplete="off">
+
+              <!-- Group 1: Account & Risk -->
+              <fieldset class="field-group">
+                <legend class="group-label">Account &amp; Risk</legend>
+                <div class="field-row">
+                  <div class="field">
+                    <label for="account-balance">Account Balance</label>
+                    <div class="input-wrapper">
+                      <span class="input-affix prefix" aria-hidden="true">$</span>
+                      <input
+                        type="number" id="account-balance" name="account-balance"
+                        placeholder="10000" min="1" step="any" inputmode="decimal"
+                        aria-label="Account balance in USD" autocomplete="off" />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="risk-percent">Risk per Trade</label>
+                    <div class="input-wrapper">
+                      <input
+                        type="number" id="risk-percent" name="risk-percent"
+                        value="2" min="0.1" max="100" step="0.1" inputmode="decimal"
+                        aria-label="Risk percentage per trade" autocomplete="off" />
+                      <span class="input-affix suffix" aria-hidden="true">%</span>
+                    </div>
+                    <input
+                      type="range" id="risk-range" class="risk-slider"
+                      min="0.1" max="10" step="0.1" value="2"
+                      aria-label="Risk percentage slider" />
+                    <div class="range-labels" aria-hidden="true">
+                      <span>0.1%</span><span>10%</span>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- Group 2: Trade Setup -->
+              <fieldset class="field-group">
+                <legend class="group-label">Trade Setup</legend>
+                <div class="field-row">
+                  <div class="field">
+                    <label for="entry-price">Entry Price</label>
+                    <div class="input-wrapper">
+                      <span class="input-affix prefix" aria-hidden="true">$</span>
+                      <input
+                        type="number" id="entry-price" name="entry-price"
+                        placeholder="65000" min="0" step="any" inputmode="decimal"
+                        aria-label="Entry price in USD" autocomplete="off" />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="stop-loss">Stop Loss</label>
+                    <div class="input-wrapper">
+                      <span class="input-affix prefix" aria-hidden="true">$</span>
+                      <input
+                        type="number" id="stop-loss" name="stop-loss"
+                        placeholder="63000" min="0" step="any" inputmode="decimal"
+                        aria-label="Stop loss price in USD" autocomplete="off" />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- Group 3: Take Profit (optional) -->
+              <fieldset class="field-group">
+                <legend class="group-label">
+                  Take Profit
+                  <span class="badge-optional" aria-label="optional field">optional</span>
+                </legend>
+                <div class="field-row single">
+                  <div class="field">
+                    <label for="take-profit">Take Profit Price</label>
+                    <div class="input-wrapper">
+                      <span class="input-affix prefix" aria-hidden="true">$</span>
+                      <input
+                        type="number" id="take-profit" name="take-profit"
+                        placeholder="70000" min="0" step="any" inputmode="decimal"
+                        aria-label="Take profit price in USD" autocomplete="off" />
+                    </div>
+                    <span class="field-hint">Enables Risk/Reward ratio and potential profit</span>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- Group 4: Leverage (optional) -->
+              <fieldset class="field-group last">
+                <legend class="group-label">
+                  Leverage &amp; Direction
+                  <span class="badge-optional" aria-label="optional field">optional</span>
+                </legend>
+                <div class="field-row">
+                  <div class="field">
+                    <label for="leverage">Leverage</label>
+                    <div class="input-wrapper">
+                      <input
+                        type="number" id="leverage" name="leverage"
+                        placeholder="10" min="1" max="125" step="1" inputmode="numeric"
+                        aria-label="Leverage multiplier" autocomplete="off" />
+                      <span class="input-affix suffix" aria-hidden="true">x</span>
+                    </div>
+                    <span class="field-hint">Enables liquidation price estimate</span>
+                  </div>
+                  <div class="field">
+                    <label id="direction-label">Direction</label>
+                    <div
+                      class="direction-toggle"
+                      role="group"
+                      aria-labelledby="direction-label">
+                      <button type="button" id="btn-long"  class="dir-btn active" data-dir="long">
+                        <svg class="dir-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                          <path d="M8 12V4M4 8l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Long
+                      </button>
+                      <button type="button" id="btn-short" class="dir-btn" data-dir="short">
+                        <svg class="dir-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                          <path d="M8 4v8M4 8l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Short
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- Error -->
+              <div
+                id="error-message"
+                class="error-banner hidden"
+                role="alert"
+                aria-live="polite">
+              </div>
+
+              <!-- Actions -->
+              <div class="form-actions">
+                <button type="button" id="btn-reset" class="btn-reset">
+                  Reset
+                </button>
+              </div>
+
+            </form>
+          </div>
+          <!-- /calc-card -->
+
+          <!-- Results Card -->
+          <div
+            id="results"
+            class="card results-card hidden"
+            aria-live="polite"
+            aria-label="Calculation results">
+
+            <h2 class="results-heading">Results</h2>
+
+            <div class="results-grid">
+
+              <!-- Always shown -->
+              <div class="result-tile">
+                <span class="tile-label">Position Size</span>
+                <span id="res-units" class="tile-value accent"></span>
+                <span id="res-units-sub" class="tile-sub">units</span>
+              </div>
+
+              <div class="result-tile">
+                <span class="tile-label">Position Value</span>
+                <span id="res-pos-value" class="tile-value"></span>
+                <span id="res-risk-sub" class="tile-sub"></span>
+              </div>
+
+              <div class="result-tile">
+                <span class="tile-label">Risk Amount</span>
+                <span id="res-risk-amount" class="tile-value danger"></span>
+                <span id="res-risk-pct-sub" class="tile-sub"></span>
+              </div>
+
+              <!-- R:R — shown when TP provided -->
+              <div id="tile-rr" class="result-tile hidden">
+                <span class="tile-label">Risk / Reward</span>
+                <span id="res-rr" class="tile-value"></span>
+                <span id="res-rr-sub" class="tile-sub"></span>
+              </div>
+
+              <!-- Breakeven — shown when TP provided -->
+              <div id="tile-breakeven" class="result-tile hidden">
+                <span class="tile-label">Breakeven Win Rate</span>
+                <span id="res-breakeven" class="tile-value"></span>
+                <span class="tile-sub">min. win rate to be profitable</span>
+              </div>
+
+              <!-- Profit — shown when TP provided -->
+              <div id="tile-profit" class="result-tile hidden">
+                <span class="tile-label">Potential Profit</span>
+                <span id="res-profit" class="tile-value success"></span>
+                <span class="tile-sub">if take profit is hit</span>
+              </div>
+
+              <!-- Liquidation — shown when leverage provided -->
+              <div id="tile-liq" class="result-tile liq-tile hidden">
+                <span class="tile-label">Est. Liquidation Price</span>
+                <span id="res-liq" class="tile-value warning"></span>
+                <span id="res-liq-sub" class="tile-sub"></span>
+              </div>
+
+            </div>
+            <!-- /results-grid -->
+
+            <!-- Liquidation disclaimer -->
+            <p id="liq-disclaimer" class="liq-note hidden">
+              &#9432; Liquidation estimate uses simplified isolated-margin formula (0.5% maintenance margin).
+              Actual price varies by exchange and tier — always verify before trading.
+            </p>
+
+            <div class="results-divider"></div>
+
+            <!-- CTA -->
+            <div class="cta-section">
+              <p class="cta-label">Ready to place this trade?</p>
+              <div class="cta-buttons">
+                <a
+                  href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00OLWRDQEW"
+                  target="_blank" rel="noopener noreferrer sponsored"
+                  class="cta-btn cta-binance"
+                  id="cta-binance">
+                  Binance
+                </a>
+                <a
+                  href="https://www.bybit.com/invite?ref=YOUR_BYBIT_REF"
+                  target="_blank" rel="noopener noreferrer sponsored"
+                  class="cta-btn cta-bybit"
+                  id="cta-bybit">
+                  Bybit
+                </a>
+                <a
+                  href="https://www.okx.com/join/YOUR_OKX_REF"
+                  target="_blank" rel="noopener noreferrer sponsored"
+                  class="cta-btn cta-okx"
+                  id="cta-okx">
+                  OKX
+                </a>
+              </div>
+              <p class="affiliate-note">
+                Affiliate disclosure: we may earn a commission if you register via these links.
+              </p>
+            </div>
+
+          </div>
+          <!-- /results-card -->
+
+        </div>
+        <!-- /calc-layout -->
+      </div>
+    </section>
+
+    <!-- ── How It Works ───────────────────────────────────────── -->
+    <section class="how-section">
+      <div class="container">
+        <h2>How Position Sizing Works</h2>
+        <div class="how-grid">
+          <div class="how-item">
+            <span class="how-num">01</span>
+            <h3>Define Your Risk</h3>
+            <p>Decide what percentage of your account you are willing to lose on this trade. Most professional traders use 1–2%. At 2%, you need 50 consecutive losses to lose everything.</p>
+          </div>
+          <div class="how-item">
+            <span class="how-num">02</span>
+            <h3>Set Your Stop Loss</h3>
+            <p>Your stop loss defines where you exit if the trade goes against you. The further it is from your entry, the smaller your position must be to stay within your risk budget.</p>
+          </div>
+          <div class="how-item">
+            <span class="how-num">03</span>
+            <h3>The Formula</h3>
+            <p>
+              <code>Size = (Account × Risk%) ÷ |Entry − Stop|</code><br />
+              This gives you the exact number of units to open so that hitting your stop costs exactly your risk amount — no more.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ────────────────────────────────────────────────── -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list" role="list">
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-1">
+              What is position sizing and why does it matter?
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-ans" id="faq-ans-1" hidden>
+              <p>Position sizing determines how many units of an asset to buy or sell per trade. It is arguably the single most important factor in long-term trading survival. Correct sizing ensures that no single loss can cause catastrophic damage to your account — regardless of the asset's volatility or your win rate.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-2">
+              What risk percentage per trade should I use?
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-ans" id="faq-ans-2" hidden>
+              <p>The most widely recommended range is <strong>1–2% per trade</strong>. Beginners should start at 0.5–1%. Some high-conviction traders go up to 3–5%, but this materially increases peak drawdown. Risking more than 5% per trade is generally considered reckless for any account size.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-3">
+              What is a good Risk/Reward ratio?
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-ans" id="faq-ans-3" hidden>
+              <p>A minimum R:R of <strong>1.5 : 1</strong> is generally acceptable; <strong>2 : 1 or higher</strong> is preferred. At 2:1, you only need to win 33% of your trades to break even. Avoid trades below 1:1 — even a high win rate cannot compensate for poor reward relative to risk in the long run.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-4">
+              How is the liquidation price estimated?
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-ans" id="faq-ans-4" hidden>
+              <p>The estimate uses a simplified isolated-margin formula with a 0.5% maintenance margin rate:</p>
+              <ul>
+                <li><strong>Long:</strong> Entry × (1 − 1/Leverage + 0.005)</li>
+                <li><strong>Short:</strong> Entry × (1 + 1/Leverage − 0.005)</li>
+              </ul>
+              <p>Actual liquidation prices vary by exchange, leverage tier, and whether you use isolated or cross margin. Always confirm the exact price on your exchange before opening a leveraged position.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-5">
+              Does this work for futures and spot trading?
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-ans" id="faq-ans-5" hidden>
+              <p>Yes. The position size and R:R calculations are identical for spot and futures. The liquidation price estimate is only meaningful for leveraged futures or margin positions. For spot, leave leverage empty — it is ignored in that case.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-6">
+              Is my data stored or sent anywhere?
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-ans" id="faq-ans-6" hidden>
+              <p>No. All calculations run entirely in your browser via JavaScript. Nothing is sent to any server. No cookies are set for tracking. No account information is ever stored or transmitted. This is a purely static, client-side tool.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-7">
+              Which exchanges are recommended?
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-ans" id="faq-ans-7" hidden>
+              <p>
+                <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00OLWRDQEW" target="_blank" rel="noopener noreferrer sponsored">Binance</a> is the world's largest exchange by volume, with competitive fees and deep liquidity.
+                <a href="https://www.bybit.com/invite?ref=YOUR_BYBIT_REF" target="_blank" rel="noopener noreferrer sponsored">Bybit</a> is widely used for perpetual futures and derivatives with intuitive leverage tools.
+                <a href="https://www.okx.com/join/YOUR_OKX_REF" target="_blank" rel="noopener noreferrer sponsored">OKX</a> offers a broad product range including spot, futures, and options with competitive maker fees.
+              </p>
+            </div>
+          </div>
+
+        </div>
+        <!-- /faq-list -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-legal">
+        For informational purposes only. Not financial advice.
+        Cryptocurrency trading involves significant risk of loss.
+        Always verify calculations on your exchange before opening any position.
+      </p>
+      <p class="footer-copy">&copy; 2026 CryptoCalc &mdash; All calculations performed client-side. No data stored.</p>
+    </div>
+  </footer>
+
+  <script src="js/calculator.js"></script>
+</body>
+</html>
