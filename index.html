@@ -460,6 +460,46 @@
               <div class="history-list" id="history-list"></div>
             </div>
 
+            <!-- Portfolio Mode -->
+            <div class="portfolio-section" id="portfolio-section">
+              <div class="portfolio-header">
+                <div class="portfolio-title-row">
+                  <span class="portfolio-title">Portfolio Mode</span>
+                  <span class="portfolio-badge">NEW</span>
+                </div>
+                <p class="portfolio-subtitle">Track multiple positions and see combined risk</p>
+              </div>
+              <div class="portfolio-toggle">
+                <button type="button" class="btn-add-position" id="btn-add-position">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                  Add to Portfolio
+                </button>
+              </div>
+              <div class="portfolio-positions" id="portfolio-positions"></div>
+              <div class="portfolio-summary hidden" id="portfolio-summary">
+                <div class="portfolio-summary-row">
+                  <span class="portfolio-summary-label">Total Positions</span>
+                  <span class="portfolio-summary-value" id="portfolio-count">0</span>
+                </div>
+                <div class="portfolio-summary-row">
+                  <span class="portfolio-summary-label">Total Risk</span>
+                  <span class="portfolio-summary-value danger" id="portfolio-total-risk">$0</span>
+                </div>
+                <div class="portfolio-summary-row">
+                  <span class="portfolio-summary-label">Risk % of Account</span>
+                  <span class="portfolio-summary-value" id="portfolio-risk-percent">0%</span>
+                </div>
+                <div class="portfolio-summary-row">
+                  <span class="portfolio-summary-label">Potential Profit</span>
+                  <span class="portfolio-summary-value success" id="portfolio-potential-profit">$0</span>
+                </div>
+                <button type="button" class="btn-clear-portfolio" id="btn-clear-portfolio">Clear Portfolio</button>
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -532,6 +572,114 @@
 
   <!-- Tooltips Container -->
   <div id="tooltips-container"></div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="modal hidden" id="modal-shortcuts">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Keyboard Shortcuts</h3>
+        <button type="button" class="modal-close" id="btn-close-shortcuts">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="shortcuts-list">
+          <div class="shortcut-item">
+            <kbd>F</kbd>
+            <span>Fetch live price</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>L</kbd>
+            <span>Toggle Long</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>S</kbd>
+            <span>Toggle Short</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>R</kbd>
+            <span>Reset form</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>C</kbd>
+            <span>Copy results</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>P</kbd>
+            <span>Add to portfolio</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>1</kbd>
+            <span>Select BTC</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>2</kbd>
+            <span>Select ETH</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>3</kbd>
+            <span>Select SOL</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>4</kbd>
+            <span>Select BNB</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>?</kbd>
+            <span>Show this help</span>
+          </div>
+          <div class="shortcut-item">
+            <kbd>Esc</kbd>
+            <span>Close modal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Modal -->
+  <div class="modal hidden" id="modal-help">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">How to Use RiskLab</h3>
+        <button type="button" class="modal-close" id="btn-close-help">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="help-section">
+          <h4>Position Size Calculator</h4>
+          <p>Enter your account balance, risk percentage, entry price, and stop loss to calculate your optimal position size. The calculator ensures you only risk your specified percentage per trade.</p>
+        </div>
+        <div class="help-section">
+          <h4>Formula</h4>
+          <pre class="formula-box">Position Size = Risk Amount / Stop Distance
+Risk Amount = Account Balance x Risk %
+Stop Distance = |Entry Price - Stop Loss|</pre>
+        </div>
+        <div class="help-section">
+          <h4>Risk/Reward Ratio</h4>
+          <p>Add a take profit price to see your R:R ratio. A 1:2 ratio means you profit $2 for every $1 risked. Professional traders aim for at least 1:1.5 or higher.</p>
+        </div>
+        <div class="help-section">
+          <h4>Liquidation Price</h4>
+          <p>When using leverage, the calculator estimates your liquidation price using a simplified isolated-margin formula. Always verify with your exchange before trading.</p>
+        </div>
+        <div class="help-section">
+          <h4>Portfolio Mode</h4>
+          <p>Add multiple positions to track your total portfolio risk. This helps ensure you don't exceed your maximum account risk across all open trades.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="js/calculator.js"></script>

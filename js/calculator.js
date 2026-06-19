@@ -22,8 +22,10 @@
     direction: 'long',
     livePrice: null,
     history: [],
+    portfolio: [],
     totalCalculations: 0,
-    autoSaveEnabled: true
+    autoSaveEnabled: true,
+    lastResults: null
   };
 
   // ============================================
@@ -85,6 +87,14 @@
     // History
     historyList: $('#history-list'),
     historySection: $('#history-section'),
+    
+    // Portfolio
+    portfolioPositions: $('#portfolio-positions'),
+    portfolioSummary: $('#portfolio-summary'),
+    portfolioCount: $('#portfolio-count'),
+    portfolioTotalRisk: $('#portfolio-total-risk'),
+    portfolioRiskPercent: $('#portfolio-risk-percent'),
+    portfolioPotentialProfit: $('#portfolio-potential-profit'),
     
     // Footer
     totalCalculations: $('#total-calculations'),
@@ -301,6 +311,9 @@
     updateVisualization(results);
     saveToHistory(results);
     incrementCalculations();
+    
+    // Store for portfolio
+    state.lastResults = results;
     
     return results;
   }
@@ -978,6 +991,10 @@
     // Clear history
     $('#btn-clear-history').addEventListener('click', clearHistory);
     
+    // Portfolio
+    $('#btn-add-position').addEventListener('click', addToPortfolio);
+    $('#btn-clear-portfolio').addEventListener('click', clearPortfolio);
+    
     // Quick start
     $('#btn-load-example').addEventListener('click', loadExample);
     
@@ -1002,13 +1019,263 @@
   }
 
   // ============================================
+  // Portfolio Mode
+  // ============================================
+  function addToPortfolio() {
+    if (!state.lastResults) {
+      showToast('Calculate a position first', 'error');
+      return;
+    }
+    
+    const r = state.lastResults;
+    
+    const position = {
+      id: Date.now(),
+      asset: r.asset,
+      direction: r.direction,
+      entryPrice: r.entryPrice,
+      stopLoss: r.stopLoss,
+      takeProfit: r.takeProfit,
+      positionUnits: r.positionUnits,
+      positionValue: r.positionValue,
+      riskAmount: r.riskAmount,
+      potentialProfit: r.potentialProfit || 0,
+      accountBalance: r.accountBalance
+    };
+    
+    state.portfolio.push(position);
+    localStorage.setItem('risklab_portfolio', JSON.stringify(state.portfolio));
+    
+    renderPortfolio();
+    showToast('Position added to portfolio', 'success');
+  }
+
+  function removeFromPortfolio(id) {
+    state.portfolio = state.portfolio.filter(p => p.id !== id);
+    localStorage.setItem('risklab_portfolio', JSON.stringify(state.portfolio));
+    renderPortfolio();
+    showToast('Position removed');
+  }
+
+  function clearPortfolio() {
+    state.portfolio = [];
+    localStorage.removeItem('risklab_portfolio');
+    renderPortfolio();
+    showToast('Portfolio cleared');
+  }
+
+  function loadPortfolio() {
+    try {
+      const saved = localStorage.getItem('risklab_portfolio');
+      if (saved) {
+        state.portfolio = JSON.parse(saved);
+        renderPortfolio();
+      }
+    } catch (e) {
+      console.error('Error loading portfolio:', e);
+    }
+  }
+
+  function renderPortfolio() {
+    const container = dom.portfolioPositions;
+    const summary = dom.portfolioSummary;
+    
+    if (state.portfolio.length === 0) {
+      container.innerHTML = '';
+      summary.classList.add('hidden');
+      return;
+    }
+    
+    summary.classList.remove('hidden');
+    
+    // Render positions
+    container.innerHTML = state.portfolio.map(p => `
+      <div class="portfolio-position" data-id="${p.id}">
+        <div class="portfolio-position-info">
+          <span class="portfolio-position-asset">${p.asset}</span>
+          <span class="portfolio-position-dir ${p.direction}">${p.direction.toUpperCase()}</span>
+          <div class="portfolio-position-details">
+            <span class="portfolio-position-size">${fmt.number(p.positionUnits, 4)} @ ${fmt.usd(p.entryPrice, 0)}</span>
+            <span class="portfolio-position-risk">Risk: ${fmt.usd(p.riskAmount)}</span>
+          </div>
+        </div>
+        <button type="button" class="btn-remove-position" data-id="${p.id}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    `).join('');
+    
+    // Add remove handlers
+    container.querySelectorAll('.btn-remove-position').forEach(btn => {
+      btn.addEventListener('click', () => removeFromPortfolio(parseInt(btn.dataset.id)));
+    });
+    
+    // Calculate totals
+    const totalRisk = state.portfolio.reduce((sum, p) => sum + p.riskAmount, 0);
+    const totalProfit = state.portfolio.reduce((sum, p) => sum + (p.potentialProfit || 0), 0);
+    const accountBalance = state.portfolio[0]?.accountBalance || parseFloat(dom.accountBalance.value) || 0;
+    const riskPercent = accountBalance > 0 ? (totalRisk / accountBalance) * 100 : 0;
+    
+    // Update summary
+    dom.portfolioCount.textContent = state.portfolio.length;
+    dom.portfolioTotalRisk.textContent = fmt.usd(totalRisk);
+    dom.portfolioRiskPercent.textContent = fmt.percent(riskPercent, 1);
+    dom.portfolioPotentialProfit.textContent = fmt.usd(totalProfit);
+  }
+
+  // ============================================
+  // Keyboard Shortcuts
+  // ============================================
+  function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+      // Ignore if typing in input
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        return;
+      }
+      
+      // Ignore if modal is open and key is not Escape
+      const modalOpen = !$('#modal-shortcuts').classList.contains('hidden') || 
+                       !$('#modal-help').classList.contains('hidden');
+      
+      if (e.key === 'Escape') {
+        closeAllModals();
+        return;
+      }
+      
+      if (modalOpen) return;
+      
+      switch(e.key.toLowerCase()) {
+        case 'f':
+          e.preventDefault();
+          fetchLivePrice();
+          break;
+        case 'l':
+          e.preventDefault();
+          setDirection('long');
+          break;
+        case 's':
+          e.preventDefault();
+          setDirection('short');
+          break;
+        case 'r':
+          e.preventDefault();
+          resetForm();
+          break;
+        case 'c':
+          e.preventDefault();
+          copyResults();
+          break;
+        case 'p':
+          e.preventDefault();
+          addToPortfolio();
+          break;
+        case '1':
+          e.preventDefault();
+          selectAsset('BTC');
+          break;
+        case '2':
+          e.preventDefault();
+          selectAsset('ETH');
+          break;
+        case '3':
+          e.preventDefault();
+          selectAsset('SOL');
+          break;
+        case '4':
+          e.preventDefault();
+          selectAsset('BNB');
+          break;
+        case '?':
+          e.preventDefault();
+          openModal('shortcuts');
+          break;
+      }
+    });
+  }
+
+  function setDirection(dir) {
+    state.direction = dir;
+    $('#btn-long').classList.toggle('active', dir === 'long');
+    $('#btn-short').classList.toggle('active', dir === 'short');
+    calculate();
+    saveFormState();
+  }
+
+  function selectAsset(asset) {
+    state.asset = asset;
+    $$('.asset-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.asset === asset));
+    dom.livePrice.textContent = '—';
+    state.livePrice = null;
+    calculate();
+    saveFormState();
+  }
+
+  function resetForm() {
+    dom.form.reset();
+    state.direction = 'long';
+    state.asset = 'BTC';
+    $('#btn-long').classList.add('active');
+    $('#btn-short').classList.remove('active');
+    $$('.asset-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.asset === 'BTC'));
+    dom.riskPercent.value = 2;
+    dom.riskSlider.value = 2;
+    updateRiskPresets(2);
+    hideResults();
+    hideError();
+    dom.quickStart.classList.remove('hidden');
+    localStorage.removeItem('risklab_form_state');
+    showToast('Form reset');
+  }
+
+  // ============================================
+  // Modals
+  // ============================================
+  function openModal(name) {
+    const modal = $(`#modal-${name}`);
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal(name) {
+    const modal = $(`#modal-${name}`);
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  }
+
+  function closeAllModals() {
+    $$('.modal').forEach(modal => modal.classList.add('hidden'));
+    document.body.style.overflow = '';
+  }
+
+  function initModals() {
+    // Shortcuts modal
+    $('#btn-close-shortcuts')?.addEventListener('click', () => closeModal('shortcuts'));
+    $('#modal-shortcuts .modal-backdrop')?.addEventListener('click', () => closeModal('shortcuts'));
+    
+    // Help modal
+    $('#btn-help')?.addEventListener('click', () => openModal('help'));
+    $('#btn-close-help')?.addEventListener('click', () => closeModal('help'));
+    $('#modal-help .modal-backdrop')?.addEventListener('click', () => closeModal('help'));
+  }
+
+  // ============================================
   // Initialize
   // ============================================
   function init() {
     initEventListeners();
     initCollapsibles();
+    initKeyboardShortcuts();
+    initModals();
     loadCalculationsCount();
     loadHistory();
+    loadPortfolio();
     
     // Try to restore form state
     const hasState = loadFormState();
@@ -1025,7 +1292,7 @@
       dom.panelSetup.classList.add('active');
     }
     
-    console.log('RiskLab 3.0 initialized');
+    console.log('RiskLab 3.0 initialized - Press ? for keyboard shortcuts');
   }
 
   // Run on DOM ready
