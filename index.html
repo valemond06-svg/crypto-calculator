@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ── SEO ──────────────────────────────────────────────────── -->
-  <title>Crypto Position Size Calculator | Free Risk Management Tool</title>
-  <meta name="description" content="Calculate your optimal crypto position size in seconds. Free tool for Bitcoin, Ethereum &amp; altcoin traders — includes R:R ratio, liquidation price, visual trade chart and live prices. No signup, no data stored." />
-  <meta name="keywords" content="crypto position size calculator, bitcoin position size, crypto risk calculator, trading position size, crypto risk management, liquidation price calculator, risk reward calculator crypto" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://valemond06-svg.github.io/crypto-calculator/" />
+  <!-- SEO -->
+  <title>RiskLab — Crypto Position Size Calculator | Know Your Risk</title>
+  <meta name="description" content="Calculate your optimal crypto position size, risk/reward ratio, and liquidation price instantly. Free professional trading tool for Bitcoin, Ethereum & altcoin traders. No signup required.">
+  <meta name="keywords" content="crypto position size calculator, bitcoin position size, crypto risk calculator, trading risk management, liquidation price calculator, risk reward ratio, crypto trading tools">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://valemond06-svg.github.io/crypto-calculator/">
 
-  <!-- ── Open Graph ────────────────────────────────────────────── -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Crypto Position Size Calculator | Free Risk Management Tool" />
-  <meta property="og:description" content="Calculate your optimal position size, R:R ratio and liquidation price in seconds. Free, instant, no signup required." />
-  <meta property="og:url" content="https://valemond06-svg.github.io/crypto-calculator/" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RiskLab — Know Your Risk Before You Trade">
+  <meta property="og:description" content="Free professional position size calculator for crypto traders. Visualize your trades, manage risk, and trade smarter.">
+  <meta property="og:url" content="https://valemond06-svg.github.io/crypto-calculator/">
+  <meta property="og:image" content="https://valemond06-svg.github.io/crypto-calculator/assets/og-image.png">
 
-  <!-- ── Twitter Card ──────────────────────────────────────────── -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Crypto Position Size Calculator" />
-  <meta name="twitter:description" content="Free crypto risk management tool. Position size, R:R ratio and liquidation price — all in your browser." />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RiskLab — Crypto Position Size Calculator">
+  <meta name="twitter:description" content="Know your risk before you trade. Free professional tool for crypto traders.">
 
-  <!-- ── Schema.org ────────────────────────────────────────────── -->
+  <!-- Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Crypto Position Size Calculator",
-    "description": "Free calculator for crypto traders to determine optimal position size, risk/reward ratio and estimated liquidation price.",
+    "name": "RiskLab",
+    "description": "Professional crypto position size calculator with trade visualization, risk assessment, and portfolio management.",
     "url": "https://valemond06-svg.github.io/crypto-calculator/",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
@@ -39,512 +40,500 @@
     },
     "featureList": [
       "Position Size Calculation",
-      "Risk/Reward Ratio",
+      "Risk/Reward Visualization",
       "Liquidation Price Estimate",
-      "Trade Visualizer Chart",
+      "Multi-Position Portfolio",
+      "Trade History",
       "Live Price Fetch",
-      "Export as Image",
-      "Client-side only — no data stored"
+      "Export & Share"
     ]
   }
   </script>
 
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0f14">
 </head>
 <body>
+  <div class="app">
 
-  <!-- ── Header ───────────────────────────────────────────────── -->
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="logo" aria-label="CryptoCalc — home">
-        <svg class="logo-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <rect width="32" height="32" rx="7" fill="#5b63f7" opacity="0.18"/>
-          <path d="M9 8v16M9 12.5h7.5a3.5 3.5 0 010 7H9" stroke="#5b63f7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="23" y1="8" x2="23" y2="24" stroke="#5b63f7" stroke-width="2.4" stroke-linecap="round"/>
-        </svg>
-        <span class="logo-text">CryptoCalc</span>
-        <span class="version-badge">2.0</span>
-      </a>
-    </div>
-  </header>
-
-  <main>
-
-    <!-- ── Hero ───────────────────────────────────────────────── -->
-    <section class="hero">
-      <div class="container">
-        <h1>Crypto Position Size Calculator</h1>
-        <p class="hero-subtitle">
-          Calculate your optimal position size, risk/reward ratio and estimated liquidation price —
-          instantly in your browser. No signup. No data stored.
-        </p>
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <a href="/" class="logo">
+          <svg class="logo-icon" viewBox="0 0 40 40">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#14b8a6"/>
+                <stop offset="100%" stop-color="#0d9488"/>
+              </linearGradient>
+            </defs>
+            <path d="M20 2 L36 8 L36 18 C36 28 28 35 20 38 C12 35 4 28 4 18 L4 8 Z" fill="url(#logoGrad)" opacity="0.15"/>
+            <path d="M20 2 L36 8 L36 18 C36 28 28 35 20 38 C12 35 4 28 4 18 L4 8 Z" fill="none" stroke="url(#logoGrad)" stroke-width="2"/>
+            <path d="M10 24 L16 20 L22 26 L30 14" fill="none" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="30" cy="14" r="2.5" fill="#14b8a6"/>
+          </svg>
+          <span class="logo-text">RiskLab</span>
+          <span class="logo-badge">3.0</span>
+        </a>
+        <div class="header-actions">
+          <button type="button" class="icon-btn" id="btn-help" title="Help">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-history" title="History">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </button>
+        </div>
       </div>
-    </section>
+    </header>
 
-    <!-- ── Calculator ─────────────────────────────────────────── -->
-    <section class="calculator-section">
-      <div class="container">
-        <div class="calc-layout">
+    <!-- Mobile Tabs -->
+    <nav class="mobile-tabs">
+      <button type="button" class="mobile-tab active" data-tab="setup">Setup</button>
+      <button type="button" class="mobile-tab" data-tab="results">Results</button>
+    </nav>
 
-          <!-- Calculator Card -->
-          <div class="card calc-card">
-            <form id="calculator-form" novalidate autocomplete="off">
+    <!-- Main -->
+    <main class="app-main">
+      <div class="calculator-wrapper">
 
-              <!-- Live Price Fetch -->
-              <div class="price-fetch-bar">
+        <!-- Input Panel -->
+        <aside class="input-panel" id="panel-setup">
+          <div class="panel-header">
+            <h1 class="panel-title">Position Calculator</h1>
+            <p class="panel-subtitle">Know your risk before you trade</p>
+          </div>
+
+          <!-- Quick Start -->
+          <div class="quick-start" id="quick-start">
+            <div class="quick-start-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+              Try it now
+            </div>
+            <p class="quick-start-text">Load a BTC example trade to see how it works.</p>
+            <button type="button" class="btn-quick-start" id="btn-load-example">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              Load Example
+            </button>
+          </div>
+
+          <form id="calculator-form" autocomplete="off" novalidate>
+
+            <!-- Asset & Price -->
+            <div class="field-group">
+              <div class="field-group-header">
+                <span class="field-group-title">Asset & Price</span>
+              </div>
+              <div class="field-group-content">
                 <div class="asset-selector">
                   <button type="button" class="asset-btn active" data-asset="BTC">BTC</button>
                   <button type="button" class="asset-btn" data-asset="ETH">ETH</button>
                   <button type="button" class="asset-btn" data-asset="SOL">SOL</button>
                   <button type="button" class="asset-btn" data-asset="BNB">BNB</button>
                 </div>
-                <div class="price-fetch-action">
-                  <span id="live-price-display" class="live-price">—</span>
-                  <button type="button" id="btn-fetch-price" class="btn-fetch" title="Fetch live price">
-                    <svg id="price-spinner" class="spinner hidden" viewBox="0 0 20 20" fill="none">
-                      <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-dasharray="25 75">
-                        <animateTransform attributeName="transform" type="rotate" from="0 10 10" to="360 10 10" dur="0.8s" repeatCount="indefinite"/>
-                      </circle>
+                <div class="price-fetch">
+                  <span class="price-display" id="live-price">—</span>
+                  <button type="button" class="btn-fetch" id="btn-fetch-price">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M23 4v6h-6M1 20v-6h6"/>
+                      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
                     </svg>
-                    <svg class="fetch-icon" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"/>
-                    </svg>
-                    <span>Fetch &amp; Apply</span>
+                    <span>Fetch Price</span>
                   </button>
                 </div>
               </div>
+            </div>
 
-              <!-- Group 1: Account & Risk -->
-              <fieldset class="field-group">
-                <legend class="group-label">Account &amp; Risk</legend>
+            <!-- Account & Risk -->
+            <div class="field-group">
+              <div class="field-group-header">
+                <span class="field-group-title">Account & Risk</span>
+              </div>
+              <div class="field-group-content">
                 <div class="field-row">
                   <div class="field">
-                    <label for="account-balance">Account Balance</label>
+                    <label class="field-label" for="account-balance">
+                      Account Balance
+                      <span class="tooltip-trigger" data-tooltip="account">?</span>
+                    </label>
                     <div class="input-wrapper">
-                      <span class="input-affix prefix" aria-hidden="true">$</span>
-                      <input
-                        type="number" id="account-balance" name="account-balance"
-                        placeholder="10000" min="1" step="any" inputmode="decimal"
-                        aria-label="Account balance in USD" autocomplete="off" />
+                      <span class="input-prefix">$</span>
+                      <input type="number" id="account-balance" class="input-field" placeholder="10,000" min="1" step="any" inputmode="decimal">
                     </div>
                   </div>
                   <div class="field">
-                    <label for="risk-percent">Risk per Trade</label>
+                    <label class="field-label" for="risk-percent">
+                      Risk per Trade
+                      <span class="tooltip-trigger" data-tooltip="risk">?</span>
+                    </label>
                     <div class="input-wrapper">
-                      <input
-                        type="number" id="risk-percent" name="risk-percent"
-                        value="2" min="0.1" max="100" step="0.1" inputmode="decimal"
-                        aria-label="Risk percentage per trade" autocomplete="off" />
-                      <span class="input-affix suffix" aria-hidden="true">%</span>
+                      <input type="number" id="risk-percent" class="input-field" value="2" min="0.1" max="100" step="0.1" inputmode="decimal">
+                      <span class="input-suffix">%</span>
                     </div>
-                    <!-- Preset buttons -->
                     <div class="preset-row">
                       <button type="button" class="preset-btn" data-risk="1">1% Safe</button>
-                      <button type="button" class="preset-btn active" data-risk="2">2% Standard</button>
-                      <button type="button" class="preset-btn" data-risk="5">5% Aggressive</button>
+                      <button type="button" class="preset-btn active" data-risk="2">2% Std</button>
+                      <button type="button" class="preset-btn" data-risk="5">5% Aggr</button>
                     </div>
-                    <input
-                      type="range" id="risk-range" class="risk-slider"
-                      min="0.1" max="10" step="0.1" value="2"
-                      aria-label="Risk percentage slider" />
-                    <div class="range-labels" aria-hidden="true">
-                      <span>0.1%</span><span>10%</span>
+                    <div class="risk-slider-wrapper">
+                      <input type="range" id="risk-slider" class="risk-slider" min="0.1" max="10" step="0.1" value="2">
+                      <div class="slider-labels">
+                        <span>0.1%</span>
+                        <span>10%</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </fieldset>
+              </div>
+            </div>
 
-              <!-- Group 2: Trade Setup -->
-              <fieldset class="field-group">
-                <legend class="group-label">Trade Setup</legend>
+            <!-- Trade Setup -->
+            <div class="field-group">
+              <div class="field-group-header">
+                <span class="field-group-title">Trade Setup</span>
+              </div>
+              <div class="field-group-content">
                 <div class="field-row">
                   <div class="field">
-                    <label for="entry-price">Entry Price</label>
+                    <label class="field-label" for="entry-price">
+                      Entry Price
+                      <span class="tooltip-trigger" data-tooltip="entry">?</span>
+                    </label>
                     <div class="input-wrapper">
-                      <span class="input-affix prefix" aria-hidden="true">$</span>
-                      <input
-                        type="number" id="entry-price" name="entry-price"
-                        placeholder="65000" min="0" step="any" inputmode="decimal"
-                        aria-label="Entry price in USD" autocomplete="off" />
+                      <span class="input-prefix">$</span>
+                      <input type="number" id="entry-price" class="input-field" placeholder="65,000" min="0" step="any" inputmode="decimal">
                     </div>
                   </div>
                   <div class="field">
-                    <label for="stop-loss">Stop Loss</label>
+                    <label class="field-label" for="stop-loss">
+                      Stop Loss
+                      <span class="tooltip-trigger" data-tooltip="stop">?</span>
+                    </label>
                     <div class="input-wrapper">
-                      <span class="input-affix prefix" aria-hidden="true">$</span>
-                      <input
-                        type="number" id="stop-loss" name="stop-loss"
-                        placeholder="63000" min="0" step="any" inputmode="decimal"
-                        aria-label="Stop loss price in USD" autocomplete="off" />
+                      <span class="input-prefix">$</span>
+                      <input type="number" id="stop-loss" class="input-field" placeholder="63,000" min="0" step="any" inputmode="decimal">
                     </div>
+                    <span class="field-hint" id="stop-distance"></span>
                   </div>
                 </div>
-              </fieldset>
-
-              <!-- Group 3: Take Profit (optional) -->
-              <fieldset class="field-group">
-                <legend class="group-label">
-                  Take Profit
-                  <span class="badge-optional" aria-label="optional field">optional</span>
-                </legend>
                 <div class="field-row single">
                   <div class="field">
-                    <label for="take-profit">Take Profit Price</label>
-                    <div class="input-wrapper">
-                      <span class="input-affix prefix" aria-hidden="true">$</span>
-                      <input
-                        type="number" id="take-profit" name="take-profit"
-                        placeholder="70000" min="0" step="any" inputmode="decimal"
-                        aria-label="Take profit price in USD" autocomplete="off" />
-                    </div>
-                    <span class="field-hint">Enables Risk/Reward ratio and potential profit</span>
-                  </div>
-                </div>
-              </fieldset>
-
-              <!-- Group 4: Leverage & Fees (optional) -->
-              <fieldset class="field-group last">
-                <legend class="group-label">
-                  Leverage, Fees &amp; Direction
-                  <span class="badge-optional" aria-label="optional field">optional</span>
-                </legend>
-                <div class="field-row">
-                  <div class="field">
-                    <label for="leverage">Leverage</label>
-                    <div class="input-wrapper">
-                      <input
-                        type="number" id="leverage" name="leverage"
-                        placeholder="10" min="1" max="125" step="1" inputmode="numeric"
-                        aria-label="Leverage multiplier" autocomplete="off" />
-                      <span class="input-affix suffix" aria-hidden="true">x</span>
-                    </div>
-                    <span class="field-hint">Enables liquidation price estimate</span>
-                  </div>
-                  <div class="field">
-                    <label for="fee-percent">Trading Fee</label>
-                    <div class="input-wrapper">
-                      <input
-                        type="number" id="fee-percent" name="fee-percent"
-                        placeholder="0.1" min="0" max="5" step="0.01" inputmode="decimal"
-                        aria-label="Trading fee percentage" autocomplete="off" />
-                      <span class="input-affix suffix" aria-hidden="true">%</span>
-                    </div>
-                    <span class="field-hint">Entry + exit fee deducted from profit</span>
-                  </div>
-                </div>
-                <div class="field-row single" style="margin-top: 0.75rem;">
-                  <div class="field">
-                    <label id="direction-label">Direction</label>
-                    <div
-                      class="direction-toggle"
-                      role="group"
-                      aria-labelledby="direction-label">
-                      <button type="button" id="btn-long" class="dir-btn active" data-dir="long">
-                        <svg class="dir-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                          <path d="M8 12V4M4 8l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <label class="field-label" id="direction-label">Direction</label>
+                    <div class="direction-toggle" role="group" aria-labelledby="direction-label">
+                      <button type="button" class="dir-btn active" id="btn-long" data-dir="long">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M12 19V5M5 12l7-7 7 7"/>
                         </svg>
                         Long
                       </button>
-                      <button type="button" id="btn-short" class="dir-btn" data-dir="short">
-                        <svg class="dir-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                          <path d="M8 4v8M4 8l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <button type="button" class="dir-btn" id="btn-short" data-dir="short">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M12 5v14M5 12l7 7 7-7"/>
                         </svg>
                         Short
                       </button>
                     </div>
                   </div>
                 </div>
-              </fieldset>
-
-              <!-- Error -->
-              <div
-                id="error-message"
-                class="error-banner hidden"
-                role="alert"
-                aria-live="polite">
               </div>
+            </div>
 
-              <!-- Actions -->
-              <div class="form-actions">
-                <button type="button" id="btn-reset" class="btn-reset">
-                  Reset
-                </button>
+            <!-- Take Profit (Collapsible) -->
+            <div class="field-group collapsed" id="group-tp">
+              <div class="field-group-header" data-toggle="group-tp">
+                <span class="field-group-title">
+                  Take Profit
+                  <span class="badge-optional">Optional</span>
+                </span>
+                <svg class="field-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
               </div>
+              <div class="field-group-content">
+                <div class="field-row single">
+                  <div class="field">
+                    <label class="field-label" for="take-profit">Take Profit Price</label>
+                    <div class="input-wrapper">
+                      <span class="input-prefix">$</span>
+                      <input type="number" id="take-profit" class="input-field" placeholder="70,000" min="0" step="any" inputmode="decimal">
+                    </div>
+                    <span class="field-hint">Enables R:R ratio and profit calculation</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-            </form>
+            <!-- Leverage & Fees (Collapsible) -->
+            <div class="field-group collapsed" id="group-leverage">
+              <div class="field-group-header" data-toggle="group-leverage">
+                <span class="field-group-title">
+                  Leverage & Fees
+                  <span class="badge-optional">Optional</span>
+                </span>
+                <svg class="field-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </div>
+              <div class="field-group-content">
+                <div class="field-row">
+                  <div class="field">
+                    <label class="field-label" for="leverage">Leverage</label>
+                    <div class="input-wrapper">
+                      <input type="number" id="leverage" class="input-field" placeholder="10" min="1" max="125" step="1" inputmode="numeric">
+                      <span class="input-suffix">x</span>
+                    </div>
+                    <span class="field-hint">For liquidation price estimate</span>
+                  </div>
+                  <div class="field">
+                    <label class="field-label" for="fee-percent">Trading Fee</label>
+                    <div class="input-wrapper">
+                      <input type="number" id="fee-percent" class="input-field" placeholder="0.1" min="0" max="5" step="0.01" inputmode="decimal">
+                      <span class="input-suffix">%</span>
+                    </div>
+                    <span class="field-hint">Entry + exit fee</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error -->
+            <div id="error-message" class="error-banner hidden" role="alert"></div>
+
+            <!-- Actions -->
+            <div class="form-actions">
+              <button type="button" class="btn-reset" id="btn-reset">Reset</button>
+            </div>
+
+          </form>
+        </aside>
+
+        <!-- Results Panel -->
+        <section class="results-panel" id="panel-results">
+
+          <!-- Empty State -->
+          <div class="results-empty" id="results-empty">
+            <svg class="results-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 3v18h18"/>
+              <path d="M18 9l-5 5-4-4-3 3"/>
+            </svg>
+            <h2 class="results-empty-title">Enter your trade details</h2>
+            <p class="results-empty-text">Fill in the form on the left to see your position size and risk metrics.</p>
           </div>
-          <!-- /calc-card -->
 
-          <!-- Results Card -->
-          <div
-            id="results"
-            class="card results-card hidden"
-            aria-live="polite"
-            aria-label="Calculation results">
-
-            <h2 class="results-heading">Results</h2>
+          <!-- Results Content -->
+          <div class="results-content hidden" id="results-content">
 
             <!-- Trade Visualizer -->
-            <div id="trade-visualizer" class="trade-visualizer hidden"></div>
+            <div class="trade-visualizer">
+              <div class="visualizer-header">
+                <span class="visualizer-title">Trade Setup</span>
+                <span class="visualizer-badge" id="rr-badge">R:R —</span>
+              </div>
+              <div class="visualizer-chart" id="trade-chart"></div>
+              <div class="visualizer-actions">
+                <span class="visualizer-hint">Visualize your entry, stop loss, and take profit</span>
+              </div>
+            </div>
 
             <!-- Risk Meter -->
-            <div id="risk-meter" class="risk-meter hidden"></div>
-
-            <div class="results-grid">
-
-              <!-- Always shown -->
-              <div class="result-tile">
-                <span class="tile-label">Position Size</span>
-                <span id="res-units" class="tile-value accent"></span>
-                <span id="res-units-sub" class="tile-sub">units</span>
-              </div>
-
-              <div class="result-tile">
-                <span class="tile-label">Position Value</span>
-                <span id="res-pos-value" class="tile-value"></span>
-                <span id="res-risk-sub" class="tile-sub"></span>
-              </div>
-
-              <div class="result-tile">
-                <span class="tile-label">Risk Amount</span>
-                <span id="res-risk-amount" class="tile-value danger"></span>
-                <span id="res-risk-pct-sub" class="tile-sub"></span>
-              </div>
-
-              <!-- R:R — shown when TP provided -->
-              <div id="tile-rr" class="result-tile hidden">
-                <span class="tile-label">Risk / Reward</span>
-                <span id="res-rr" class="tile-value"></span>
-                <span id="res-rr-sub" class="tile-sub"></span>
-              </div>
-
-              <!-- Breakeven — shown when TP provided -->
-              <div id="tile-breakeven" class="result-tile hidden">
-                <span class="tile-label">Breakeven Win Rate</span>
-                <span id="res-breakeven" class="tile-value"></span>
-                <span class="tile-sub">min. win rate to be profitable</span>
-              </div>
-
-              <!-- Profit — shown when TP provided -->
-              <div id="tile-profit" class="result-tile hidden">
-                <span class="tile-label">Potential Profit</span>
-                <span id="res-profit" class="tile-value success"></span>
-                <span class="tile-sub">if take profit is hit</span>
-              </div>
-
-              <!-- Liquidation — shown when leverage provided -->
-              <div id="tile-liq" class="result-tile liq-tile hidden">
-                <span class="tile-label">Est. Liquidation Price</span>
-                <span id="res-liq" class="tile-value warning"></span>
-                <span id="res-liq-sub" class="tile-sub"></span>
-              </div>
-
+            <div class="risk-meter">
+              <div class="risk-meter-header">Risk Assessment</div>
+              <div class="risk-meter-gauge" id="risk-gauge"></div>
+              <div class="risk-meter-label" id="risk-label">—</div>
+              <div class="risk-meter-factors" id="risk-factors"></div>
             </div>
-            <!-- /results-grid -->
 
-            <!-- Liquidation disclaimer -->
-            <p id="liq-disclaimer" class="liq-note hidden">
-              &#9432; Liquidation estimate uses simplified isolated-margin formula (0.5% maintenance margin).
-              Actual price varies by exchange and tier — always verify before trading.
-            </p>
+            <!-- Results Grid -->
+            <div class="results-grid">
+              <div class="result-card highlight">
+                <span class="result-label">Position Size</span>
+                <span class="result-value accent" id="res-units">—</span>
+                <span class="result-sub" id="res-units-sub">units</span>
+              </div>
+              <div class="result-card">
+                <span class="result-label">Position Value</span>
+                <span class="result-value" id="res-value">—</span>
+                <span class="result-sub" id="res-value-sub"></span>
+              </div>
+              <div class="result-card">
+                <span class="result-label">Risk Amount</span>
+                <span class="result-value danger" id="res-risk">—</span>
+                <span class="result-sub" id="res-risk-sub"></span>
+              </div>
+              <div class="result-card hidden" id="card-rr">
+                <span class="result-label">Risk / Reward</span>
+                <span class="result-value" id="res-rr">—</span>
+                <span class="result-sub" id="res-rr-sub"></span>
+              </div>
+              <div class="result-card hidden" id="card-breakeven">
+                <span class="result-label">Breakeven Win Rate</span>
+                <span class="result-value" id="res-breakeven">—</span>
+                <span class="result-sub">min. to be profitable</span>
+              </div>
+              <div class="result-card hidden" id="card-profit">
+                <span class="result-label">Potential Profit</span>
+                <span class="result-value success" id="res-profit">—</span>
+                <span class="result-sub" id="res-profit-sub">if TP hit</span>
+              </div>
+              <div class="result-card span-full hidden" id="card-liq">
+                <span class="result-label">Est. Liquidation Price</span>
+                <span class="result-value warning" id="res-liq">—</span>
+                <span class="result-sub" id="res-liq-sub"></span>
+              </div>
+            </div>
 
-            <!-- Action Buttons -->
-            <div id="result-actions" class="result-actions hidden">
-              <button type="button" id="btn-copy" class="action-btn">
-                <svg class="action-icon" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
-                  <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/>
+            <!-- Liquidation Warning -->
+            <div class="liq-warning hidden" id="liq-warning">
+              ⚠️ Liquidation price estimate uses simplified isolated-margin formula (0.5% maintenance margin). 
+              Actual price varies by exchange — always verify before trading.
+            </div>
+
+            <!-- Actions -->
+            <div class="result-actions">
+              <button type="button" class="action-btn" id="btn-copy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                 </svg>
                 Copy
               </button>
-              <button type="button" id="btn-share" class="action-btn">
-                <svg class="action-icon" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"/>
+              <button type="button" class="action-btn" id="btn-share">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="18" cy="5" r="3"/>
+                  <circle cx="6" cy="12" r="3"/>
+                  <circle cx="18" cy="19" r="3"/>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
                 </svg>
                 Share
               </button>
-              <button type="button" id="btn-export" class="action-btn">
-                <svg class="action-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="3" width="14" height="14" rx="2"/>
-                  <path d="M7 10l3 3 3-3M10 13V7"/>
+              <button type="button" class="action-btn" id="btn-export">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
                 Export
               </button>
+              <button type="button" class="action-btn" id="btn-save">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                  <polyline points="17 21 17 13 7 13 7 21"/>
+                  <polyline points="7 3 7 8 15 8"/>
+                </svg>
+                Save
+              </button>
             </div>
-
-            <div class="results-divider"></div>
 
             <!-- CTA -->
             <div class="cta-section">
-              <p class="cta-label">Ready to place this trade?</p>
+              <h3 class="cta-title">Ready to place this trade?</h3>
               <div class="cta-buttons">
-                <a
-                  href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00OLWRDQEW"
-                  target="_blank" rel="noopener noreferrer sponsored"
-                  class="cta-btn cta-binance"
-                  id="cta-binance">
-                  Binance
-                </a>
-                <a
-                  href="https://www.bybit.com/invite?ref=YOUR_BYBIT_REF"
-                  target="_blank" rel="noopener noreferrer sponsored"
-                  class="cta-btn cta-bybit"
-                  id="cta-bybit">
-                  Bybit
-                </a>
-                <a
-                  href="https://my.okx.com/it/join/48161026"
-                  target="_blank" rel="noopener noreferrer sponsored"
-                  class="cta-btn cta-okx"
-                  id="cta-okx">
-                  OKX
-                </a>
+                <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00OLWRDQEW" target="_blank" rel="noopener noreferrer sponsored" class="cta-btn cta-binance">Binance</a>
+                <a href="https://www.bybit.com/invite?ref=YOUR_BYBIT_REF" target="_blank" rel="noopener noreferrer sponsored" class="cta-btn cta-bybit">Bybit</a>
+                <a href="https://my.okx.com/it/join/48161026" target="_blank" rel="noopener noreferrer sponsored" class="cta-btn cta-okx">OKX</a>
               </div>
-              <p class="affiliate-note">
-                Affiliate disclosure: we may earn a commission if you register via these links.
-              </p>
+              <p class="cta-disclaimer">Affiliate disclosure: we may earn a commission if you sign up via these links.</p>
+            </div>
+
+            <!-- History -->
+            <div class="history-section" id="history-section">
+              <div class="history-header">
+                <span class="history-title">Recent Calculations</span>
+                <button type="button" class="btn-clear-history" id="btn-clear-history">Clear all</button>
+              </div>
+              <div class="history-list" id="history-list"></div>
             </div>
 
           </div>
-          <!-- /results-card -->
+        </section>
 
-        </div>
-        <!-- /calc-layout -->
       </div>
-    </section>
+    </main>
 
-    <!-- ── How It Works ───────────────────────────────────────── -->
-    <section class="how-section">
-      <div class="container">
-        <h2>How Position Sizing Works</h2>
-        <div class="how-grid">
-          <div class="how-item">
-            <span class="how-num">01</span>
-            <h3>Define Your Risk</h3>
-            <p>Decide what percentage of your account you are willing to lose on this trade. Most professional traders use 1–2%. At 2%, you need 50 consecutive losses to lose everything.</p>
-          </div>
-          <div class="how-item">
-            <span class="how-num">02</span>
-            <h3>Set Your Stop Loss</h3>
-            <p>Your stop loss defines where you exit if the trade goes against you. The further it is from your entry, the smaller your position must be to stay within your risk budget.</p>
-          </div>
-          <div class="how-item">
-            <span class="how-num">03</span>
-            <h3>The Formula</h3>
-            <p>
-              <code>Size = (Account × Risk%) ÷ |Entry − Stop|</code><br />
-              This gives you the exact number of units to open so that hitting your stop costs exactly your risk amount — no more.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── FAQ ────────────────────────────────────────────────── -->
-    <section class="faq-section">
-      <div class="container">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-list" role="list">
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-1">
-              What is position sizing and why does it matter?
-              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-ans" id="faq-ans-1" hidden>
-              <p>Position sizing determines how many units of an asset to buy or sell per trade. It is arguably the single most important factor in long-term trading survival. Correct sizing ensures that no single loss can cause catastrophic damage to your account — regardless of the asset's volatility or your win rate.</p>
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <svg viewBox="0 0 40 40">
+                <defs><linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#14b8a6"/><stop offset="100%" stop-color="#0d9488"/></linearGradient></defs>
+                <path d="M20 2 L36 8 L36 18 C36 28 28 35 20 38 C12 35 4 28 4 18 L4 8 Z" fill="url(#footerGrad)" opacity="0.15"/>
+                <path d="M20 2 L36 8 L36 18 C36 28 28 35 20 38 C12 35 4 28 4 18 L4 8 Z" fill="none" stroke="url(#footerGrad)" stroke-width="2"/>
+                <path d="M10 24 L16 20 L22 26 L30 14" fill="none" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="30" cy="14" r="2.5" fill="#14b8a6"/>
+              </svg>
+              <span>RiskLab</span>
+            </div>
+            <p class="footer-tagline">Know your risk before you trade. Free professional position size calculator for crypto traders.</p>
+            <div class="footer-stats">
+              <div class="footer-stat">
+                <span class="footer-stat-value" id="total-calculations">0</span>
+                <span class="footer-stat-label">Calculations</span>
+              </div>
+              <div class="footer-stat">
+                <span class="footer-stat-value">100%</span>
+                <span class="footer-stat-label">Client-side</span>
+              </div>
             </div>
           </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-2">
-              What risk percentage per trade should I use?
-              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-ans" id="faq-ans-2" hidden>
-              <p>The most widely recommended range is <strong>1–2% per trade</strong>. Beginners should start at 0.5–1%. Some high-conviction traders go up to 3–5%, but this materially increases peak drawdown. Risking more than 5% per trade is generally considered reckless for any account size.</p>
-            </div>
-          </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-3">
-              What is a good Risk/Reward ratio?
-              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-ans" id="faq-ans-3" hidden>
-              <p>A minimum R:R of <strong>1.5 : 1</strong> is generally acceptable; <strong>2 : 1 or higher</strong> is preferred. At 2:1, you only need to win 33% of your trades to break even. Avoid trades below 1:1 — even a high win rate cannot compensate for poor reward relative to risk in the long run.</p>
-            </div>
-          </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-4">
-              How is the liquidation price estimated?
-              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-ans" id="faq-ans-4" hidden>
-              <p>The estimate uses a simplified isolated-margin formula with a 0.5% maintenance margin rate:</p>
+          <div class="footer-links">
+            <div class="footer-column">
+              <h4>Resources</h4>
               <ul>
-                <li><strong>Long:</strong> Entry × (1 − 1/Leverage + 0.005)</li>
-                <li><strong>Short:</strong> Entry × (1 + 1/Leverage − 0.005)</li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#formulas">Formulas</a></li>
+                <li><a href="https://github.com/valemond06-svg/crypto-calculator" target="_blank" rel="noopener">GitHub</a></li>
               </ul>
-              <p>Actual liquidation prices vary by exchange, leverage tier, and whether you use isolated or cross margin. Always confirm the exact price on your exchange before opening a leveraged position.</p>
+            </div>
+            <div class="footer-column">
+              <h4>Exchanges</h4>
+              <ul>
+                <li><a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00OLWRDQEW" target="_blank" rel="noopener noreferrer sponsored">Binance</a></li>
+                <li><a href="https://www.bybit.com/invite?ref=YOUR_BYBIT_REF" target="_blank" rel="noopener noreferrer sponsored">Bybit</a></li>
+                <li><a href="https://my.okx.com/it/join/48161026" target="_blank" rel="noopener noreferrer sponsored">OKX</a></li>
+              </ul>
             </div>
           </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-5">
-              Does this work for futures and spot trading?
-              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-ans" id="faq-ans-5" hidden>
-              <p>Yes. The position size and R:R calculations are identical for spot and futures. The liquidation price estimate is only meaningful for leveraged futures or margin positions. For spot, leave leverage empty — it is ignored in that case.</p>
-            </div>
-          </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-6">
-              Is my data stored or sent anywhere?
-              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-ans" id="faq-ans-6" hidden>
-              <p>No. All calculations run entirely in your browser via JavaScript. Nothing is sent to any server. No cookies are set for tracking. No account information is ever stored or transmitted. This is a purely static, client-side tool. The only external request is the optional live price fetch from CoinGecko API.</p>
-            </div>
-          </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-q" aria-expanded="false" aria-controls="faq-ans-7">
-              Which exchanges are recommended?
-              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-ans" id="faq-ans-7" hidden>
-              <p>
-                <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00OLWRDQEW" target="_blank" rel="noopener noreferrer sponsored">Binance</a> is the world's largest exchange by volume, with competitive fees and deep liquidity.
-                <a href="https://www.bybit.com/invite?ref=YOUR_BYBIT_REF" target="_blank" rel="noopener noreferrer sponsored">Bybit</a> is widely used for perpetual futures and derivatives with intuitive leverage tools.
-                <a href="https://my.okx.com/it/join/48161026" target="_blank" rel="noopener noreferrer sponsored">OKX</a> offers a broad product range including spot, futures, and options with competitive maker fees.
-              </p>
-            </div>
-          </div>
-
         </div>
-        <!-- /faq-list -->
+        <div class="footer-bottom">
+          <p class="footer-legal">
+            For informational purposes only. Not financial advice. Cryptocurrency trading involves significant risk of loss.
+            All calculations run client-side — no data stored or transmitted.
+          </p>
+          <div class="footer-social">
+            <a href="https://github.com/valemond06-svg/crypto-calculator" target="_blank" rel="noopener" title="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
-    </section>
+    </footer>
 
-  </main>
+  </div>
 
-  <!-- ── Footer ─────────────────────────────────────────────── -->
-  <footer class="site-footer">
-    <div class="container">
-      <p class="footer-legal">
-        For informational purposes only. Not financial advice.
-        Cryptocurrency trading involves significant risk of loss.
-        Always verify calculations on your exchange before opening any position.
-      </p>
-      <p class="footer-copy">&copy; 2026 CryptoCalc &mdash; All calculations performed client-side. No data stored.</p>
-    </div>
-  </footer>
+  <!-- Tooltips Container -->
+  <div id="tooltips-container"></div>
 
+  <!-- Scripts -->
   <script src="js/calculator.js"></script>
 </body>
 </html>

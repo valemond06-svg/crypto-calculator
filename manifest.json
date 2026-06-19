@@ -1,0 +1,22 @@
+{
+  "name": "RiskLab - Crypto Position Calculator",
+  "short_name": "RiskLab",
+  "description": "Professional crypto position size calculator. Know your risk before you trade.",
+  "start_url": "/crypto-calculator/",
+  "display": "standalone",
+  "background_color": "#0a0f14",
+  "theme_color": "#0a0f14",
+  "orientation": "portrait-primary",
+  "scope": "/crypto-calculator/",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "utilities"],
+  "lang": "en",
+  "dir": "ltr"
+}
