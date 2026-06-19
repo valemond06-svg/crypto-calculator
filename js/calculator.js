@@ -1266,6 +1266,137 @@
   }
 
   // ============================================
+  // Drawdown Simulator
+  // ============================================
+  function initDrawdownSimulator() {
+    const slider = $('#dd-losses-slider');
+    const input = $('#dd-losses');
+    
+    if (!slider || !input) return;
+    
+    const updateDrawdown = () => {
+      const losses = parseInt(input.value) || 5;
+      const accountBalance = parseFloat(dom.accountBalance.value) || 10000;
+      const riskPercent = parseFloat(dom.riskPercent.value) || 2;
+      
+      calculateDrawdown(accountBalance, riskPercent, losses);
+    };
+    
+    slider.addEventListener('input', (e) => {
+      input.value = e.target.value;
+      updateDrawdown();
+    });
+    
+    input.addEventListener('input', (e) => {
+      slider.value = e.target.value;
+      updateDrawdown();
+    });
+    
+    // Initial calculation
+    updateDrawdown();
+  }
+
+  function calculateDrawdown(startBalance, riskPercent, losses) {
+    const riskFraction = riskPercent / 100;
+    const balances = [startBalance];
+    
+    // Calculate balance after each loss
+    let currentBalance = startBalance;
+    for (let i = 0; i < losses; i++) {
+      const loss = currentBalance * riskFraction;
+      currentBalance -= loss;
+      balances.push(currentBalance);
+    }
+    
+    const finalBalance = currentBalance;
+    const totalDrawdownPercent = ((startBalance - finalBalance) / startBalance) * 100;
+    const recoveryNeeded = ((startBalance - finalBalance) / finalBalance) * 100;
+    
+    // Update display
+    $('#dd-final-balance').textContent = fmt.usd(finalBalance);
+    $('#dd-total-percent').textContent = fmt.percent(totalDrawdownPercent, 1);
+    $('#dd-recovery').textContent = fmt.percent(recoveryNeeded, 1);
+    
+    // Generate insight
+    const insight = getDrawdownInsight(losses, riskPercent, totalDrawdownPercent);
+    $('#dd-insight').textContent = insight;
+    
+    // Draw chart
+    drawDrawdownChart(balances, startBalance);
+  }
+
+  function getDrawdownInsight(losses, riskPercent, drawdown) {
+    if (drawdown < 10) {
+      return `${losses} consecutive losses at ${riskPercent}% risk is manageable. Your account remains healthy.`;
+    } else if (drawdown < 20) {
+      return `A ${drawdown.toFixed(0)}% drawdown requires discipline to recover. Consider reducing position size during losing streaks.`;
+    } else if (drawdown < 30) {
+      return `${drawdown.toFixed(0)}% drawdown is significant. You'd need ${((drawdown / (100 - drawdown)) * 100).toFixed(0)}% gains to recover.`;
+    } else {
+      return `Warning: ${drawdown.toFixed(0)}% drawdown is severe. Consider using smaller risk per trade (1-2% max).`;
+    }
+  }
+
+  function drawDrawdownChart(balances, startBalance) {
+    const chart = $('#drawdown-chart');
+    if (!chart) return;
+    
+    const width = 400;
+    const height = 120;
+    const padding = 20;
+    
+    const maxVal = startBalance * 1.02;
+    const minVal = Math.min(...balances) * 0.98;
+    const range = maxVal - minVal;
+    
+    const points = balances.map((bal, i) => {
+      const x = padding + (i / (balances.length - 1)) * (width - padding * 2);
+      const y = height - padding - ((bal - minVal) / range) * (height - padding * 2);
+      return `${x},${y}`;
+    });
+    
+    const areaPoints = [
+      `${padding},${height - padding}`,
+      ...points,
+      `${width - padding},${height - padding}`
+    ].join(' ');
+    
+    const svg = `
+      <svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="ddGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ef4444" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#ef4444" stop-opacity="0.05"/>
+          </linearGradient>
+        </defs>
+        
+        <!-- Grid lines -->
+        <line x1="${padding}" y1="${padding}" x2="${padding}" y2="${height - padding}" stroke="var(--color-border)" stroke-width="1"/>
+        <line x1="${padding}" y1="${height - padding}" x2="${width - padding}" y2="${height - padding}" stroke="var(--color-border)" stroke-width="1"/>
+        
+        <!-- Area fill -->
+        <polygon points="${areaPoints}" fill="url(#ddGradient)"/>
+        
+        <!-- Line -->
+        <polyline points="${points.join(' ')}" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        
+        <!-- Points -->
+        ${balances.map((bal, i) => {
+          const x = padding + (i / (balances.length - 1)) * (width - padding * 2);
+          const y = height - padding - ((bal - minVal) / range) * (height - padding * 2);
+          return `<circle cx="${x}" cy="${y}" r="3" fill="#ef4444"/>`;
+        }).join('')}
+        
+        <!-- Labels -->
+        <text x="${padding}" y="${padding - 5}" fill="var(--color-text-muted)" font-size="10">${fmt.compact(startBalance)}</text>
+        <text x="${width - padding}" y="${height - 5}" fill="var(--color-text-muted)" font-size="10" text-anchor="end">${balances.length - 1} losses</text>
+      </svg>
+    `;
+    
+    chart.innerHTML = svg;
+  }
+
+  // ============================================
   // Initialize
   // ============================================
   function init() {
@@ -1273,6 +1404,7 @@
     initCollapsibles();
     initKeyboardShortcuts();
     initModals();
+    initDrawdownSimulator();
     loadCalculationsCount();
     loadHistory();
     loadPortfolio();

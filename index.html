@@ -500,6 +500,44 @@
               </div>
             </div>
 
+            <!-- Drawdown Simulator -->
+            <div class="drawdown-section" id="drawdown-section">
+              <div class="drawdown-header">
+                <div class="drawdown-title-row">
+                  <span class="drawdown-title">Drawdown Simulator</span>
+                  <span class="portfolio-badge">BETA</span>
+                </div>
+                <p class="drawdown-subtitle">See how consecutive losses affect your account</p>
+              </div>
+              <div class="drawdown-controls">
+                <div class="drawdown-field">
+                  <label class="field-label" for="dd-losses">Consecutive Losses</label>
+                  <div class="drawdown-input-row">
+                    <input type="range" id="dd-losses-slider" class="risk-slider" min="1" max="20" value="5">
+                    <input type="number" id="dd-losses" class="input-field-mini" value="5" min="1" max="50">
+                  </div>
+                </div>
+              </div>
+              <div class="drawdown-results" id="drawdown-results">
+                <div class="drawdown-chart" id="drawdown-chart"></div>
+                <div class="drawdown-stats">
+                  <div class="drawdown-stat">
+                    <span class="drawdown-stat-label">Final Balance</span>
+                    <span class="drawdown-stat-value" id="dd-final-balance">—</span>
+                  </div>
+                  <div class="drawdown-stat">
+                    <span class="drawdown-stat-label">Total Drawdown</span>
+                    <span class="drawdown-stat-value danger" id="dd-total-percent">—</span>
+                  </div>
+                  <div class="drawdown-stat">
+                    <span class="drawdown-stat-label">Recovery Needed</span>
+                    <span class="drawdown-stat-value warning" id="dd-recovery">—</span>
+                  </div>
+                </div>
+                <p class="drawdown-insight" id="dd-insight"></p>
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -683,5 +721,15 @@ Stop Distance = |Entry Price - Stop Loss|</pre>
 
   <!-- Scripts -->
   <script src="js/calculator.js"></script>
+  <script>
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('SW registered:', reg.scope))
+          .catch(err => console.log('SW registration failed:', err));
+      });
+    }
+  </script>
 </body>
 </html>

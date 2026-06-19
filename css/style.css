@@ -1721,6 +1721,127 @@ ul, ol {
 }
 
 /* ============================================
+   11b. Drawdown Simulator
+   ============================================ */
+.drawdown-section {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.drawdown-header {
+  margin-bottom: var(--space-4);
+}
+
+.drawdown-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.drawdown-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.drawdown-subtitle {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.drawdown-controls {
+  margin-bottom: var(--space-4);
+}
+
+.drawdown-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.drawdown-input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.drawdown-input-row .risk-slider {
+  flex: 1;
+}
+
+.input-field-mini {
+  width: 60px;
+  height: 36px;
+  padding: 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.drawdown-results {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.drawdown-chart {
+  height: 120px;
+  margin-bottom: var(--space-4);
+  background: var(--color-bg-base);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.drawdown-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.drawdown-stat {
+  text-align: center;
+}
+
+.drawdown-stat-label {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.drawdown-stat-value {
+  font-size: var(--text-md);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}
+
+.drawdown-stat-value.danger {
+  color: var(--color-danger);
+}
+
+.drawdown-stat-value.warning {
+  color: var(--color-warning);
+}
+
+.drawdown-insight {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  text-align: center;
+  padding: var(--space-2);
+  background: var(--color-bg-base);
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================
    12. Modals
    ============================================ */
 .modal {
