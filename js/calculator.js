@@ -1397,6 +1397,116 @@
   }
 
   // ============================================
+  // Kelly Criterion Calculator
+  // ============================================
+  function initKellyCalculator() {
+    const winrateInput = $('#kelly-winrate');
+    const rrInput = $('#kelly-rr');
+    
+    if (!winrateInput || !rrInput) return;
+    
+    const updateKelly = () => {
+      const winrate = parseFloat(winrateInput.value) / 100;
+      const rr = parseFloat(rrInput.value);
+      
+      if (!winrate || !rr || winrate <= 0 || winrate >= 1 || rr <= 0) {
+        $('#kelly-full').textContent = '—';
+        $('#kelly-half').textContent = '—';
+        $('#kelly-quarter').textContent = '—';
+        return;
+      }
+      
+      // Kelly formula: K% = W - [(1-W) / R]
+      // where W = probability of winning, R = win/loss ratio
+      const kelly = winrate - ((1 - winrate) / rr);
+      
+      if (kelly <= 0) {
+        $('#kelly-full').textContent = '0% (No Edge)';
+        $('#kelly-half').textContent = '0%';
+        $('#kelly-quarter').textContent = '0%';
+        return;
+      }
+      
+      const fullKelly = kelly * 100;
+      const halfKelly = fullKelly / 2;
+      const quarterKelly = fullKelly / 4;
+      
+      $('#kelly-full').textContent = fmt.percent(fullKelly, 1);
+      $('#kelly-half').textContent = fmt.percent(halfKelly, 1);
+      $('#kelly-quarter').textContent = fmt.percent(quarterKelly, 1);
+    };
+    
+    winrateInput.addEventListener('input', debounce(updateKelly, 150));
+    rrInput.addEventListener('input', debounce(updateKelly, 150));
+  }
+
+  // ============================================
+  // Compound Growth Calculator
+  // ============================================
+  function initCompoundCalculator() {
+    const targetInput = $('#compound-target');
+    const gainInput = $('#compound-gain');
+    
+    if (!targetInput || !gainInput) return;
+    
+    const updateCompound = () => {
+      const startBalance = parseFloat(dom.accountBalance.value) || 10000;
+      const targetBalance = parseFloat(targetInput.value);
+      const gainPercent = parseFloat(gainInput.value);
+      
+      if (!targetBalance || !gainPercent || targetBalance <= startBalance || gainPercent <= 0) {
+        $('#compound-trades').textContent = '—';
+        $('#compound-factor').textContent = '—';
+        $('#compound-milestones').innerHTML = '';
+        return;
+      }
+      
+      const gainFactor = 1 + (gainPercent / 100);
+      const growthFactor = targetBalance / startBalance;
+      
+      // n = log(target/start) / log(1+gain)
+      const tradesNeeded = Math.ceil(Math.log(growthFactor) / Math.log(gainFactor));
+      
+      $('#compound-trades').textContent = tradesNeeded.toLocaleString();
+      $('#compound-factor').textContent = growthFactor.toFixed(1) + 'x';
+      
+      // Calculate milestones
+      const milestones = [];
+      const milestoneTargets = [2, 5, 10];
+      
+      milestoneTargets.forEach(mult => {
+        if (mult < growthFactor) {
+          const trades = Math.ceil(Math.log(mult) / Math.log(gainFactor));
+          milestones.push({
+            label: `${mult}x (${fmt.usd(startBalance * mult, 0)})`,
+            trades
+          });
+        }
+      });
+      
+      if (milestones.length > 0) {
+        $('#compound-milestones').innerHTML = `
+          <div class="milestone-header">Milestones:</div>
+          ${milestones.map(m => `
+            <div class="milestone-item">
+              <span>${m.label}</span>
+              <span>${m.trades} trades</span>
+            </div>
+          `).join('')}
+        `;
+      } else {
+        $('#compound-milestones').innerHTML = '';
+      }
+    };
+    
+    targetInput.addEventListener('input', debounce(updateCompound, 150));
+    gainInput.addEventListener('input', debounce(updateCompound, 150));
+    
+    // Also update when account balance changes
+    dom.accountBalance.addEventListener('input', debounce(updateCompound, 300));
+  }
+
+  // ============================================
   // Initialize
   // ============================================
   function init() {
@@ -1405,6 +1515,8 @@
     initKeyboardShortcuts();
     initModals();
     initDrawdownSimulator();
+    initKellyCalculator();
+    initCompoundCalculator();
     loadCalculationsCount();
     loadHistory();
     loadPortfolio();

@@ -314,6 +314,98 @@
             <!-- Error -->
             <div id="error-message" class="error-banner hidden" role="alert"></div>
 
+            <!-- Advanced Calculators (Collapsible) -->
+            <div class="field-group collapsed" id="group-advanced">
+              <div class="field-group-header" data-toggle="group-advanced">
+                <span class="field-group-title">
+                  Advanced Calculators
+                  <span class="badge-optional">Pro</span>
+                </span>
+                <svg class="field-group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </div>
+              <div class="field-group-content">
+                
+                <!-- Kelly Criterion -->
+                <div class="advanced-calc">
+                  <div class="advanced-calc-header">
+                    <span class="advanced-calc-title">Kelly Criterion</span>
+                    <span class="advanced-calc-badge">Optimal Bet Size</span>
+                  </div>
+                  <p class="advanced-calc-desc">Calculate the mathematically optimal position size based on your win rate and R:R ratio.</p>
+                  <div class="field-row">
+                    <div class="field">
+                      <label class="field-label" for="kelly-winrate">Win Rate</label>
+                      <div class="input-wrapper">
+                        <input type="number" id="kelly-winrate" class="input-field" placeholder="55" min="1" max="99" step="1" inputmode="numeric">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="field-label" for="kelly-rr">Avg R:R</label>
+                      <div class="input-wrapper">
+                        <input type="number" id="kelly-rr" class="input-field" placeholder="2" min="0.1" max="100" step="0.1" inputmode="decimal">
+                        <span class="input-suffix">:1</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="kelly-results" id="kelly-results">
+                    <div class="kelly-result">
+                      <span class="kelly-label">Full Kelly</span>
+                      <span class="kelly-value" id="kelly-full">—</span>
+                    </div>
+                    <div class="kelly-result highlight">
+                      <span class="kelly-label">Half Kelly (Recommended)</span>
+                      <span class="kelly-value accent" id="kelly-half">—</span>
+                    </div>
+                    <div class="kelly-result">
+                      <span class="kelly-label">Quarter Kelly (Conservative)</span>
+                      <span class="kelly-value" id="kelly-quarter">—</span>
+                    </div>
+                  </div>
+                  <p class="advanced-calc-note">Formula: K% = W - [(1-W) / R] where W=win rate, R=avg win/avg loss</p>
+                </div>
+
+                <!-- Compound Calculator -->
+                <div class="advanced-calc">
+                  <div class="advanced-calc-header">
+                    <span class="advanced-calc-title">Compound Growth</span>
+                    <span class="advanced-calc-badge">Target Calculator</span>
+                  </div>
+                  <p class="advanced-calc-desc">See how your account grows with consistent profitable trading.</p>
+                  <div class="field-row">
+                    <div class="field">
+                      <label class="field-label" for="compound-target">Target Balance</label>
+                      <div class="input-wrapper">
+                        <span class="input-prefix">$</span>
+                        <input type="number" id="compound-target" class="input-field" placeholder="100,000" min="1" step="any" inputmode="decimal">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="field-label" for="compound-gain">Gain per Trade</label>
+                      <div class="input-wrapper">
+                        <input type="number" id="compound-gain" class="input-field" placeholder="2" min="0.1" max="100" step="0.1" inputmode="decimal">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="compound-results" id="compound-results">
+                    <div class="compound-result">
+                      <span class="compound-label">Trades Needed</span>
+                      <span class="compound-value accent" id="compound-trades">—</span>
+                    </div>
+                    <div class="compound-result">
+                      <span class="compound-label">Growth Factor</span>
+                      <span class="compound-value" id="compound-factor">—</span>
+                    </div>
+                  </div>
+                  <div class="compound-milestones" id="compound-milestones"></div>
+                </div>
+
+              </div>
+            </div>
+
             <!-- Actions -->
             <div class="form-actions">
               <button type="button" class="btn-reset" id="btn-reset">Reset</button>
