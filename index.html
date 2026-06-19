@@ -6,7 +6,7 @@
 
   <!-- ── SEO ──────────────────────────────────────────────────── -->
   <title>Crypto Position Size Calculator | Free Risk Management Tool</title>
-  <meta name="description" content="Calculate your optimal crypto position size in seconds. Free tool for Bitcoin, Ethereum &amp; altcoin traders — includes R:R ratio and leverage liquidation price estimate. No signup, no data stored." />
+  <meta name="description" content="Calculate your optimal crypto position size in seconds. Free tool for Bitcoin, Ethereum &amp; altcoin traders — includes R:R ratio, liquidation price, visual trade chart and live prices. No signup, no data stored." />
   <meta name="keywords" content="crypto position size calculator, bitcoin position size, crypto risk calculator, trading position size, crypto risk management, liquidation price calculator, risk reward calculator crypto" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://valemond06-svg.github.io/crypto-calculator/" />
@@ -41,7 +41,9 @@
       "Position Size Calculation",
       "Risk/Reward Ratio",
       "Liquidation Price Estimate",
-      "Long and Short positions",
+      "Trade Visualizer Chart",
+      "Live Price Fetch",
+      "Export as Image",
       "Client-side only — no data stored"
     ]
   }
@@ -62,6 +64,7 @@
           <line x1="23" y1="8" x2="23" y2="24" stroke="#5b63f7" stroke-width="2.4" stroke-linecap="round"/>
         </svg>
         <span class="logo-text">CryptoCalc</span>
+        <span class="version-badge">2.0</span>
       </a>
     </div>
   </header>
@@ -88,6 +91,30 @@
           <div class="card calc-card">
             <form id="calculator-form" novalidate autocomplete="off">
 
+              <!-- Live Price Fetch -->
+              <div class="price-fetch-bar">
+                <div class="asset-selector">
+                  <button type="button" class="asset-btn active" data-asset="BTC">BTC</button>
+                  <button type="button" class="asset-btn" data-asset="ETH">ETH</button>
+                  <button type="button" class="asset-btn" data-asset="SOL">SOL</button>
+                  <button type="button" class="asset-btn" data-asset="BNB">BNB</button>
+                </div>
+                <div class="price-fetch-action">
+                  <span id="live-price-display" class="live-price">—</span>
+                  <button type="button" id="btn-fetch-price" class="btn-fetch" title="Fetch live price">
+                    <svg id="price-spinner" class="spinner hidden" viewBox="0 0 20 20" fill="none">
+                      <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-dasharray="25 75">
+                        <animateTransform attributeName="transform" type="rotate" from="0 10 10" to="360 10 10" dur="0.8s" repeatCount="indefinite"/>
+                      </circle>
+                    </svg>
+                    <svg class="fetch-icon" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"/>
+                    </svg>
+                    <span>Fetch &amp; Apply</span>
+                  </button>
+                </div>
+              </div>
+
               <!-- Group 1: Account & Risk -->
               <fieldset class="field-group">
                 <legend class="group-label">Account &amp; Risk</legend>
@@ -110,6 +137,12 @@
                         value="2" min="0.1" max="100" step="0.1" inputmode="decimal"
                         aria-label="Risk percentage per trade" autocomplete="off" />
                       <span class="input-affix suffix" aria-hidden="true">%</span>
+                    </div>
+                    <!-- Preset buttons -->
+                    <div class="preset-row">
+                      <button type="button" class="preset-btn" data-risk="1">1% Safe</button>
+                      <button type="button" class="preset-btn active" data-risk="2">2% Standard</button>
+                      <button type="button" class="preset-btn" data-risk="5">5% Aggressive</button>
                     </div>
                     <input
                       type="range" id="risk-range" class="risk-slider"
@@ -170,10 +203,10 @@
                 </div>
               </fieldset>
 
-              <!-- Group 4: Leverage (optional) -->
+              <!-- Group 4: Leverage & Fees (optional) -->
               <fieldset class="field-group last">
                 <legend class="group-label">
-                  Leverage &amp; Direction
+                  Leverage, Fees &amp; Direction
                   <span class="badge-optional" aria-label="optional field">optional</span>
                 </legend>
                 <div class="field-row">
@@ -189,12 +222,25 @@
                     <span class="field-hint">Enables liquidation price estimate</span>
                   </div>
                   <div class="field">
+                    <label for="fee-percent">Trading Fee</label>
+                    <div class="input-wrapper">
+                      <input
+                        type="number" id="fee-percent" name="fee-percent"
+                        placeholder="0.1" min="0" max="5" step="0.01" inputmode="decimal"
+                        aria-label="Trading fee percentage" autocomplete="off" />
+                      <span class="input-affix suffix" aria-hidden="true">%</span>
+                    </div>
+                    <span class="field-hint">Entry + exit fee deducted from profit</span>
+                  </div>
+                </div>
+                <div class="field-row single" style="margin-top: 0.75rem;">
+                  <div class="field">
                     <label id="direction-label">Direction</label>
                     <div
                       class="direction-toggle"
                       role="group"
                       aria-labelledby="direction-label">
-                      <button type="button" id="btn-long"  class="dir-btn active" data-dir="long">
+                      <button type="button" id="btn-long" class="dir-btn active" data-dir="long">
                         <svg class="dir-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                           <path d="M8 12V4M4 8l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -238,6 +284,12 @@
             aria-label="Calculation results">
 
             <h2 class="results-heading">Results</h2>
+
+            <!-- Trade Visualizer -->
+            <div id="trade-visualizer" class="trade-visualizer hidden"></div>
+
+            <!-- Risk Meter -->
+            <div id="risk-meter" class="risk-meter hidden"></div>
 
             <div class="results-grid">
 
@@ -296,6 +348,30 @@
               &#9432; Liquidation estimate uses simplified isolated-margin formula (0.5% maintenance margin).
               Actual price varies by exchange and tier — always verify before trading.
             </p>
+
+            <!-- Action Buttons -->
+            <div id="result-actions" class="result-actions hidden">
+              <button type="button" id="btn-copy" class="action-btn">
+                <svg class="action-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
+                  <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/>
+                </svg>
+                Copy
+              </button>
+              <button type="button" id="btn-share" class="action-btn">
+                <svg class="action-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"/>
+                </svg>
+                Share
+              </button>
+              <button type="button" id="btn-export" class="action-btn">
+                <svg class="action-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="14" height="14" rx="2"/>
+                  <path d="M7 10l3 3 3-3M10 13V7"/>
+                </svg>
+                Export
+              </button>
+            </div>
 
             <div class="results-divider"></div>
 
@@ -432,7 +508,7 @@
               <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div class="faq-ans" id="faq-ans-6" hidden>
-              <p>No. All calculations run entirely in your browser via JavaScript. Nothing is sent to any server. No cookies are set for tracking. No account information is ever stored or transmitted. This is a purely static, client-side tool.</p>
+              <p>No. All calculations run entirely in your browser via JavaScript. Nothing is sent to any server. No cookies are set for tracking. No account information is ever stored or transmitted. This is a purely static, client-side tool. The only external request is the optional live price fetch from CoinGecko API.</p>
             </div>
           </div>
 

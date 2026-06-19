@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   CryptoCalc — stylesheet
+   CryptoCalc 2.0 — stylesheet
    Dark theme, mobile-first, no external dependencies
    ═══════════════════════════════════════════════════════════ */
 
@@ -118,6 +118,15 @@ code {
   font-weight: 700;
   letter-spacing: -0.02em;
 }
+.version-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  background: var(--accent);
+  color: white;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  margin-left: 0.25rem;
+}
 
 /* ── Hero ───────────────────────────────────────────────── */
 .hero {
@@ -161,6 +170,88 @@ h1 {
   gap: 1.25rem;
 }
 
+/* ── Price Fetch Bar ────────────────────────────────────── */
+.price-fetch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.asset-selector {
+  display: flex;
+  gap: 0.375rem;
+}
+.asset-btn {
+  padding: 0.375rem 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--mono);
+}
+.asset-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+.asset-btn.active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.price-fetch-action {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.live-price {
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  min-width: 80px;
+  text-align: right;
+}
+.btn-fetch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.4375rem 0.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font);
+}
+.btn-fetch:hover:not(:disabled) {
+  background: var(--accent);
+  color: white;
+}
+.btn-fetch:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn-fetch .fetch-icon,
+.btn-fetch .spinner {
+  width: 14px;
+  height: 14px;
+}
+.btn-fetch .spinner.hidden + .fetch-icon { display: block; }
+.btn-fetch .spinner:not(.hidden) + .fetch-icon { display: none; }
+
 /* ── Field Groups (fieldsets) ───────────────────────────── */
 .field-group {
   border-bottom: 1px solid var(--border-soft);
@@ -193,6 +284,47 @@ h1 {
   border: 1px solid var(--border);
   padding: 0.1em 0.45em;
   border-radius: 4px;
+}
+
+/* ── Preset Buttons ─────────────────────────────────────── */
+.preset-row {
+  display: flex;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.375rem;
+}
+.preset-btn {
+  flex: 1;
+  padding: 0.375rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font);
+  white-space: nowrap;
+}
+.preset-btn:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+.preset-btn.active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.preset-btn[data-risk="1"].active {
+  background: var(--green-dim);
+  border-color: var(--green);
+  color: var(--green);
+}
+.preset-btn[data-risk="5"].active {
+  background: var(--red-dim);
+  border-color: var(--red);
+  color: var(--red);
 }
 
 /* ── Field Row ──────────────────────────────────────────── */
@@ -376,6 +508,47 @@ input::placeholder { color: var(--text-muted); font-family: var(--font); font-we
   margin-bottom: 1rem;
 }
 
+/* ── Trade Visualizer ───────────────────────────────────── */
+.trade-visualizer {
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  display: flex;
+  justify-content: center;
+}
+.trade-visualizer.hidden { display: none; }
+.trade-viz-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+}
+
+/* ── Risk Meter ─────────────────────────────────────────── */
+.risk-meter {
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+.risk-meter.hidden { display: none; }
+.risk-meter-svg {
+  width: 120px;
+  height: 70px;
+}
+.risk-meter-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* ── Results Grid ───────────────────────────────────────── */
 .results-grid {
   display: grid;
@@ -449,6 +622,60 @@ input::placeholder { color: var(--text-muted); font-family: var(--font); font-we
   border-radius: var(--radius-sm);
 }
 .liq-note.hidden { display: none; }
+
+/* ── Result Actions ─────────────────────────────────────── */
+.result-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-soft);
+}
+.result-actions.hidden { display: none; }
+
+.action-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5625rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font);
+}
+.action-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  background: var(--accent-dim);
+}
+.action-btn.success {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-dim);
+}
+.action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.action-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.action-icon.spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
 /* ── Results Divider ────────────────────────────────────── */
 .results-divider {
@@ -664,3 +891,31 @@ input::placeholder { color: var(--text-muted); font-family: var(--font); font-we
 
 /* ── Utility ────────────────────────────────────────────── */
 .hidden { display: none !important; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 500px) {
+  .price-fetch-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.625rem;
+  }
+  .asset-selector {
+    justify-content: center;
+  }
+  .price-fetch-action {
+    justify-content: space-between;
+  }
+  .preset-row {
+    flex-wrap: wrap;
+  }
+  .preset-btn {
+    flex: 1 1 30%;
+    font-size: 0.6rem;
+  }
+  .result-actions {
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    flex: 1 1 45%;
+  }
+}
